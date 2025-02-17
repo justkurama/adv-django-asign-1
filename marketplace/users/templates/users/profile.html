@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>User Profile</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="{{ user.username }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="profile_image">Profile Image:</label>
+                <input type="file" id="profile_image" name="profile_image">
+                {% if user.profile.image %}
+                    <img src="{{ user.profile.image.url }}" alt="Profile Image" width="100">
+                {% endif %}
+            </div>
+            <button type="submit">Update Profile</button>
+        </form>
+    </div>
+</body>
+</html>
