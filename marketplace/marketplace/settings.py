@@ -38,13 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_results',
 
+    'rest_framework',
+    'rest_framework_simplejwt',
     'users',
     'products',
     'trading',
     'sales',
     'analytics',
-    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -88,6 +90,8 @@ DATABASES = {
     }
 }
 
+CELERY_BROKER_URL = 'django-db'
+CELERY_RESULT_BACKEND = 'django-db'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -142,9 +146,10 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
 }
+
 
 # Simple JWT settings
 SIMPLE_JWT = {
