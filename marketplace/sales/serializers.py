@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import SalesOrder, Invoice, Discount
+from .models import SalesOrder, Invoice, Discount, Payment
 
 class SalesOrderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,4 +14,9 @@ class InvoiceSerializer(serializers.ModelSerializer):
 class DiscountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Discount
+        fields = '__all__'
+
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
         fields = '__all__'

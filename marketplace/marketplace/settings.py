@@ -28,6 +28,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# PayPal settings
+
+PAYPAL_CLIENT_ID = "AckKfm01Dy7P9zLJJBr-u-_gZIh8C9UcZgPweXyJDQcJS7BVJ-Hl9a9chta4JxdztOUDu3-u6b-JUU1o"
+PAYPAL_SECRET = "EAv8xIzLTZpFXZ8o_9jn2nuETAYUrhen_YpeedU_L9uQTJ7KTD73byYSLoCcJPhYYvzJIQFah2oMB8Zn"
+PAYPAL_MODE = "sandbox" 
 
 # Application definition
 
@@ -38,16 +43,26 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'django_celery_results',
-
+    'django_celery_beat',
+    'channels',
     'rest_framework',
     'rest_framework_simplejwt',
+
     'users',
     'products',
     'trading',
     'sales',
     'analytics',
 ]
+
+ASGI_APPLICATION = "marketplace.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

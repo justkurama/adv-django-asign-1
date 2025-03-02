@@ -1,5 +1,5 @@
 from celery import shared_task
-from .models import Order, Transaction
+from .models import Order, Transaction, SalesOrder
 from django.utils.timezone import now
 
 @shared_task
@@ -28,3 +28,16 @@ def process_orders():
                 buy.save()
                 sell.save()
                 break  # Move to next buy order
+
+@shared_task
+def process_pending_orders():
+    orders = SalesOrder.objects.filter(status='pending')
+    for order in orders:
+        order.status = 'processed'
+        order.save()
+    return f"{orders.count()} orders processed"
+
+@shared_task
+def generate_sales_report():
+    total_orders = SalesOrder.objects.filter(status='processed').count()
+    return f"Total Processed Orders: {total_orders}"
